@@ -1,0 +1,67 @@
+name: AutoArenaIndia
+type: theme
+description: A Theme for UIPatterns and Storybook.
+core: 8.x
+core_version_requirement: ^8 || ^9
+libraries:
+  - foxnews/global  
+#  global is used for attaching css and js.
+
+base theme: false
+
+regions:
+  header: 'Header'
+  navigation_menu_top: 'Navigation Menu Top'
+  navigation_menu_bottom: 'Navigation Menu Bottom'
+  hamburger: 'Hamburger'
+  top_banner: 'Top Banner'
+  sidebar_video_first: 'Sidebar Video First'
+  sidebar_logo: 'Sidebar Logo'
+  on_now: 'On now'
+  fox_and_friends: 'Fox And Friends First'
+  sidebar_exclusive_clips: 'Exclusive Clips'
+  home_content: 'Home Content'
+  other_news: 'Other News Home Page'
+  feature_and_faces: 'Feature and Faces'
+  foxnation: 'FoxNation'
+  sidebar_right: 'Sidebar Right'
+  advertisement1: 'Advertisement 1'
+  advertisement2: 'Advertisement 2'
+  content: 'Content'
+  # content_list: 'Content List'
+  # content_first: 'Content First'
+  # Home Page Bottom News Starts
+  digital_originals: 'Digital Originals'
+  Business: 'Business'
+  corona_virus: 'Corona Virus'
+  Fox_News_Flash: 'Fox News Flash'
+  Politics: 'Politics'
+  U_S: 'U.S.'
+  World: 'World'
+  america_together: 'America Together'
+  opinion: 'Opinion'
+  sports: 'Sports'
+  technology: 'Technology'
+  personal_finance: 'Personal Finance'
+  # Home Page Bottom News Ends
+  section_five_news: 'Right Sidebar 5 News'
+  vaccine_finder: 'Vaccine Finder'
+  newsletter: 'Newsletter'
+  footer_top_left: Footer top left
+  footer_top_right: Footer top right
+  footer_middle_left: Footer middle left
+  footer_middle_right: Footer middle right
+  footer_bottom_left: Footer bottom left
+  footer_bottom_right: Footer bottom right
+
+
+  primary_menu: Primary menu
+  secondary_header_menu: Secondary header menu
+  search_block: Search
+  login_block: Login
+  sign_up_block: Sign Up
+  highlighted: Highlighted
+  language_switcher: Language switcher
+  breadcrumb: Breadcrumb
+  left_sidebar: Left Sidebar
+  right_sidebar: Right Sidebar
