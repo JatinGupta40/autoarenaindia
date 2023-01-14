@@ -10,7 +10,7 @@ libraries:
 base theme: false
 
 regions:
-  header: 'Header'
+  header: 'Header' 
   navigation_menu_top: 'Navigation Menu Top'
   navigation_menu_bottom: 'Navigation Menu Bottom'
   hamburger: 'Hamburger'
