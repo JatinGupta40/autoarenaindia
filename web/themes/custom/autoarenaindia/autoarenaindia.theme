@@ -1,0 +1,616 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the PresetManager theme.
+ */
+
+/**
+ * Place any preprocess functions in .theme.inc files, or make a new one.
+ *
+ * The .theme files should contain logic for the elements in their corresponding
+ * template directories (ie 'blocks.theme.inc' should modify templates in
+ * 'templates/blocks'.)
+ */
+
+include 'includes/blocks.theme.inc';
+include 'includes/content.theme.inc';
+include 'includes/form.theme.inc';
+include 'includes/layout.theme.inc';
+include 'includes/media.theme.inc';
+include 'includes/misc.theme.inc';
+include 'includes/navigation.theme.inc';
+include 'includes/layout_builder.theme.inc';
+
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\Core\Url;
+use Drupal\file\Entity\File;
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Component\Utility\Html;
+use Drupal\node\Entity\Node;
+use Drupal\block\Entity\Block;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ *  Implements hook_preprocess_HOOK()
+*/
+function autoarenaindia_preprocess_menu(&$variables, $hook) {
+  if ($hook == 'menu') {
+  	foreach ($variables['items'] as &$item) {
+	    $item['is_front'] = FALSE;
+	    $item['is_nolink'] = FALSE;
+	    $item['highlight_tile'] = FALSE;
+	    if ($item['url']->isRouted()) {
+	      if ($item['url']->getRouteName() === '<front>') {
+	        $item['is_front'] = TRUE;
+	      }
+	      if ($item['url']->getRouteName() === '<nolink>') {
+	        $item['is_nolink'] = TRUE;
+	      }
+	    }
+  	}
+  }
+
+	//Footer navigation variables passing to template
+	$variables['footer_top_navigation_variation'] = !empty(theme_get_setting('footer_top_navigation_variation'))? theme_get_setting('footer_top_navigation_variation') : 'with-arrow';
+	$variables['footer_top_navigation_size'] = !empty(theme_get_setting('footer_top_navigation_size'))? theme_get_setting('footer_top_navigation_size') : 'font-large';
+	$variables['footer_top_navigation_color'] = !empty(theme_get_setting('footer_top_navigation_color'))? theme_get_setting('footer_top_navigation_color') : 'on-white-background';
+	$variables['footer_middle_navigation_variation'] = !empty(theme_get_setting('footer_middle_navigation_variation'))? theme_get_setting('footer_middle_navigation_variation') : 'default';
+  $variables['footer_middle_navigation_size'] = !empty(theme_get_setting('footer_middle_navigation_size'))? theme_get_setting('footer_middle_navigation_size') : 'font-small';
+	$variables['footer_middle_navigation_color'] = !empty(theme_get_setting('footer_middle_navigation_color'))? theme_get_setting('footer_middle_navigation_color') : 'on-white-background';
+	$variables['footer_utility_navigation_variation'] = !empty(theme_get_setting('footer_utility_navigation_variation'))? theme_get_setting('footer_utility_navigation_variation') : 'with-arrow';
+	$variables['footer_utility_navigation_size'] = !empty(theme_get_setting('footer_utility_navigation_size'))? theme_get_setting('footer_utility_navigation_size') : 'font-small';
+	$variables['footer_utility_navigation_color'] = !empty(theme_get_setting('footer_utility_navigation_color'))? theme_get_setting('footer_utility_navigation_color') : 'on-white-background';
+	$variables['footer_bottom_navigation_variation'] = !empty(theme_get_setting('footer_bottom_navigation_variation'))? theme_get_setting('footer_bottom_navigation_variation') : 'horizontal';
+	$variables['footer_bottom_navigation_size'] = !empty(theme_get_setting('footer_bottom_navigation_size'))? theme_get_setting('footer_bottom_navigation_size') : 'font-small';
+	$variables['footer_bottom_navigation_color'] = !empty(theme_get_setting('footer_bottom_navigation_color'))? theme_get_setting('footer_bottom_navigation_color') : 'on-white-background';
+}
+
+function autoarenaindia_preprocess_status_messages(&$variables) {
+  $variables['notification_align_options'] = !empty(theme_get_setting('notification_align_options'))? theme_get_setting('notification_align_options') : 'left';
+  $variables['notification_size_options'] = !empty(theme_get_setting('notification_size_options'))? theme_get_setting('notification_size_options') : 'small';
+  $variables['notification_bg_options'] = !empty(theme_get_setting('notification_bg_options'))? theme_get_setting('notification_bg_options') : 'dark';
+  $variables['notification_layout_options'] = !empty(theme_get_setting('notification_layout_options'))? theme_get_setting('notification_layout_options') : 'oneline';
+  $variables['notification_icon_visibility'] = !empty(theme_get_setting('notification_icon_visibility'))? theme_get_setting('notification_icon_visibility') : 0;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter()
+*/
+function autoarenaindia_theme_suggestions_form_alter(array &$suggestions, array $variables) {
+	$suggestions[] = 'form__' . str_replace('-','_', $variables['element']['#id']);
+}
+
+/**
+ * Implements hook_theme()
+*/
+function autoarenaindia_theme($existing, $type, $theme, $path) {
+  return [
+    'form__user-register-form' => [
+      '#theme' => 'form--user-register-form',
+      'render element' => 'form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter()
+*/
+function autoarenaindia_theme_suggestions_fieldset_alter(array &$suggestions, array $variables, $hook){
+	if (isset($variables['element']['#id'])) {
+    $id = str_replace("-", "_", $variables['element']['#id']);
+    $suggestions[] = $hook . '__' . $id;
+	}
+}
+
+/**
+ *  Implements hook_preprocess_HOOK()
+*/
+function autoarenaindia_preprocess_pattern_logo_grid(&$variables) {
+	// Checking whether the variable have any value or not.
+  if (isset($variables) != NULL) {
+    $blockType = $variables['context']->getProperty('entity')->bundle();
+		// Checking whether if block is logo-grid or not.
+		if ($blockType === 'logo_grid') {
+      $variables['on_scroll_animation'] = $variables['context']->getProperty('entity')
+			->get('field_on_scroll_animation')->value;
+      $variables['on_scroll_animation_duration'] = $variables['context']
+			->getProperty('entity')->get('field_on_scroll_animation_durati')->value;
+      $variables['on_scroll_animation_delay'] = $variables['context']
+			->getProperty('entity')->get('field_on_scroll_animation_delay')->value;
+    }
+  }
+}
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+*/
+function autoarenaindia_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+	$footer_type_options = [
+		'type-1' => t('Type 1')
+		];
+
+	$color_options = [
+		'white' => 'White #ffffff',
+		'dark'  => 'Dark #2f3941',
+  ];
+
+  // Header settings
+  $header_navigation_type_options = [
+  	'only_search' => t('Only Search'),
+    'no_search' => t('No Search'),
+    'search_and_cta' => t('Search + CTA'),
+    'logo_and_hamburger' => t('Hamburger'),
+    'search_and_hamburger' => t('Search + Hamburger'),
+    'search_hamburger_and_menu' => t('Search + Hamburger + Menu'),
+  ];
+
+  $header_position_options = [
+    'center' => t('Center'),
+    'left'   => t('Left'),
+    'right'  => t('Right'),
+    'with-hamburger' =>  t('With hamburger'),
+  ];
+
+  // Secondary header settings
+  $secondary_header_position_options = [
+    'left'   => t('Left'),
+    'center' => t('Center'),
+    'right'  => t('Right'),
+  ];
+
+  // Notification settings
+  $notification_size_options = [
+	  'small' => t('Small - 16px'),
+    'large'  => t('Large - 18px'),
+  ];
+
+  $notification_align_options = [
+	  'center' => t('Center'),
+    'left'   => t('Left'),
+  ];
+
+  $notification_bg_options = [
+		'dark'  => t('Primary dark #17494d'),
+    'light' => t('Light grey #e9ebed'),
+    'black'  => t('Dark grey #2f3941'),
+  ];
+
+  $notification_layout_options = [
+	  'oneline' => t('One line'),
+    'twoline' => t('Two line')
+  ];
+
+  // Breadcrumb settings
+  $breadcrumb_variation_options = [
+    'expanded' => t('Expanded'),
+    'collapse' => t('Collapse')
+  ];
+
+  $breadcrumb_style_options = [
+    'no-fill' => t('No Fill'),
+    'primary-fill' => t('Primary Fill #f5fcfc'),
+    'edge-lines' => t('Edge lines #e9ebed')
+  ];
+
+  // Navigation settings
+  $navigation_size_options = [
+    'font-large'=> t('Large - 48px'),
+    'font-small' => t('Small - 16px'),
+    'font-xsmall'=> t('Extra small - 14px'),
+  ];
+
+  $navigation_color_options = [
+    'on-white-background'=> t('For white background #ffffff'),
+    'on-darkGrey-background'=> t('For darkGrey background #68737d'),
+    'on-darkPrimary-background'=> t('For darkPrimary background #2f3941'),
+  ];
+
+  $navigation_variation_options = [
+    'default'=> t('Default'),
+    'with-arrow' => t('With Arrow'),
+    'horizontal'=> t('Horizontal'),
+  ];
+
+	// Login Signup Settings
+	$login_signup_variation = [
+		'simple' => t('Simple'),
+		'simple-social' => t('Simple and Social'),
+		'splitquote' => t('Split Quote Carousel'),
+		'splitimage' => t('Split Image Carousel'),
+	];
+
+	// Field mapping configuration.
+	// Site Setting
+	$form['autoarenaindia_site_settings'] = [
+		'#type' => 'details',
+		'#title' => t('Site settings'),
+		'#open' => False,
+	];
+	
+	$form['space_site_settings']['site_welcome_text'] = [
+    '#type'           => 'textfield',
+		'#title' 					=> t('Welcome text'),
+    '#default_value'  => !empty(theme_get_setting('site_welcome_text'))? theme_get_setting('site_welcome_text') : 'Welcome to the SPACE',
+  ];
+
+	// Header configuration.
+  $form['space_header_type'] = [
+		'#type' => 'details',
+		'#title' => t('Header'),
+		'#open' => FALSE,
+  ];
+
+  $form['space_header_type']['header_navigation_type'] = [
+		'#type'           => 'select',
+		'#options'        => $header_navigation_type_options,
+		'#title'          => t('Navigation Type'),
+		'#description'    => t('Please select header variation'),
+		'#default_value'  => !empty(theme_get_setting('header_navigation_type'))? theme_get_setting('header_navigation_type') : 'search_hamburger_and_menu',
+  ];
+
+	$form['space_header_type']['header_position'] = [
+		'#type'           => 'select',
+		'#options'        => $header_position_options,
+		'#title'          => t('Header Position'),
+		'#description'    => t('Please select position'),
+		'#default_value'  => !empty(theme_get_setting('header_position'))? theme_get_setting('header_position') : 'left',
+  ];
+
+  // Secondary header configuration.
+  $form['space_header_type']['secondary_header_position'] = [
+	  '#type'           => 'select',
+	  '#options'        => $secondary_header_position_options,
+	  '#title'          => t('Secondary header position'),
+	  '#description'    => t('Please select position'),
+	  '#default_value'  => !empty(theme_get_setting('secondary_header_position'))? theme_get_setting('secondary_header_position') : 'left',
+  ];
+
+  // Footer configuration.
+	$form['space_footer_type'] = [
+		'#type' => 'details',
+		'#title' => t('Footer'),
+		'#open' => FALSE,
+	];
+
+	$form['space_footer_type']['footer_type'] = [
+		'#type'           => 'select',
+		'#options'        => $footer_type_options,
+		'#title'          => t('Footer Type'),
+		'#description'    => t('Please select footer variation'),
+		'#default_value'  => !empty(theme_get_setting('footer_type'))? theme_get_setting('footer_type') : 'type-4',
+  ];
+
+	$form['space_footer_type']['colour'] = [
+		'#type'           => 'select',
+		'#options'        => $color_options,
+		'#title'          => t('Colour'),
+		'#description'    => t('Please select colour'),
+		'#default_value'  => !empty(theme_get_setting('colour'))? theme_get_setting('colour') : 'white',
+  ];
+
+  // Footer Navigation configuration.
+  $form['space_footer_type']['space_navigation_type'] = [
+		'#type' => 'details',
+		'#title' => t('Footer Navigation'),
+		'#open' => FALSE,
+	];
+
+  // Navigation for footer top
+  $form['space_footer_type']['space_navigation_type']['footer_top_navigation'] = [
+		'#type' => 'details',
+		'#title' => t('Footer Top Navigation'),
+		'#open' => FALSE,
+	];
+
+  $form['space_footer_type']['space_navigation_type']['footer_top_navigation']['footer_top_navigation_variation'] = [
+		'#type'           => 'select',
+		'#options'        => $navigation_variation_options,
+		'#title'          => t('Variant option'),
+		'#description'    => t('Please select variant'),
+		'#default_value'  => !empty(theme_get_setting('footer_top_navigation_variation'))? theme_get_setting('footer_top_navigation_variation') : 'with-arrow',
+  ];
+
+	$form['space_footer_type']['space_navigation_type']['footer_top_navigation']['footer_top_navigation_size'] = [
+		'#type'           => 'select',
+		'#options'        => $navigation_size_options,
+		'#title'          => t('Variant size'),
+		'#description'    => t('Please select size'),
+		'#default_value'  => !empty(theme_get_setting('footer_top_navigation_size'))? theme_get_setting('footer_top_navigation_size') : 'font-large',
+  ];
+
+  $form['space_footer_type']['space_navigation_type']['footer_top_navigation']['footer_top_navigation_color'] = [
+		'#type'           => 'select',
+		'#options'        => $navigation_color_options,
+		'#title'          => t('Variant color'),
+		'#description'    => t('Please select variant color'),
+		'#default_value'  => !empty(theme_get_setting('footer_top_navigation_color'))? theme_get_setting('footer_top_navigation_color') : 'on-white-background',
+  ];
+
+	// Navigation for Footer middle navigation - Default menu
+  $form['space_footer_type']['space_navigation_type']['footer_middle_navigation'] = [
+		'#type' => 'details',
+		'#title' => t('Footer Middle Navigation'),
+		'#open' => FALSE,
+	];
+
+  $form['space_footer_type']['space_navigation_type']['footer_middle_navigation']['footer_middle_navigation_variation'] = [
+		'#type'           => 'select',
+		'#options'        => $navigation_variation_options,
+		'#title'          => t('Variant option'),
+		'#description'    => t('Please select variant'),
+		'#default_value'  => !empty(theme_get_setting('footer_middle_navigation_variation'))? theme_get_setting('footer_middle_navigation_variation') : 'default',
+  ];
+
+  $form['space_footer_type']['space_navigation_type']['footer_middle_navigation']['footer_middle_navigation_size'] = [
+		'#type'           => 'select',
+		'#options'        => $navigation_size_options,
+		'#title'          => t('Variant size'),
+		'#description'    => t('Please select size'),
+		'#default_value'  => !empty(theme_get_setting('footer_middle_navigation_size'))? theme_get_setting('footer_middle_navigation_size') : 'font-small',
+  ];
+
+  $form['space_footer_type']['space_navigation_type']['footer_middle_navigation']['footer_middle_navigation_color'] = [
+		'#type'           => 'select',
+		'#options'        => $navigation_color_options,
+		'#title'          => t('Variant color'),
+		'#description'    => t('Please select variant color'),
+		'#default_value'  => !empty(theme_get_setting('footer_middle_navigation_color'))? theme_get_setting('footer_middle_navigation_color') : 'on-white-background',
+  ];
+
+	// Navigation for Footer middle navigation - Utility menu
+	$form['space_footer_type']['space_navigation_type']['footer_utility_navigation'] = [
+		'#type' => 'details',
+		'#title' => t('Footer Utility Navigation'),
+		'#open' => FALSE,
+	];
+
+	$form['space_footer_type']['space_navigation_type']['footer_utility_navigation']['footer_utility_navigation_variation'] = [
+		'#type'           => 'select',
+		'#options'        => $navigation_variation_options,
+		'#title'          => t('Variant option'),
+		'#description'    => t('Please select variant'),
+		'#default_value'  => !empty(theme_get_setting('footer_utility_navigation_variation'))? theme_get_setting('footer_utility_navigation_variation') : 'arrow',
+	];
+
+	$form['space_footer_type']['space_navigation_type']['footer_utility_navigation']['footer_utility_navigation_size'] = [
+		'#type'           => 'select',
+		'#options'        => $navigation_size_options,
+		'#title'          => t('Variant size'),
+		'#description'    => t('Please select size'),
+		'#default_value'  => !empty(theme_get_setting('footer_utility_navigation_size'))? theme_get_setting('footer_utility_navigation_size') : 'font-small',
+	];
+
+	$form['space_footer_type']['space_navigation_type']['footer_utility_navigation']['footer_utility_navigation_color'] = [
+		'#type'           => 'select',
+		'#options'        => $navigation_color_options,
+		'#title'          => t('Variant color'),
+		'#description'    => t('Please select variant color'),
+		'#default_value'  => !empty(theme_get_setting('footer_utility_navigation_color'))? theme_get_setting('footer_utility_navigation_color') : 'on-white-background',
+	];
+
+  // Navigation for Footer bottom
+  $form['space_footer_type']['space_navigation_type']['footer_bottom_navigation'] = [
+		'#type' => 'details',
+		'#title' => t('Footer Bottom Navigation'),
+		'#open' => FALSE,
+	];
+
+  $form['space_footer_type']['space_navigation_type']['footer_bottom_navigation']['footer_bottom_navigation_variation'] = [
+		'#type'           => 'select',
+		'#options'        => $navigation_variation_options,
+		'#title'          => t('Variant option'),
+		'#description'    => t('Please select variant'),
+		'#default_value'  => !empty(theme_get_setting('footer_bottom_navigation_variation'))? theme_get_setting('footer_bottom_navigation_variation') : 'horizontal',
+  ];
+
+  $form['space_footer_type']['space_navigation_type']['footer_bottom_navigation']['footer_bottom_navigation_size'] = [
+		'#type'           => 'select',
+		'#options'        => $navigation_size_options,
+		'#title'          => t('Variant size'),
+		'#description'    => t('Please select size'),
+		'#default_value'  => !empty(theme_get_setting('footer_bottom_navigation_size'))? theme_get_setting('footer_bottom_navigation_size') : 'font-small',
+  ];
+
+  $form['space_footer_type']['space_navigation_type']['footer_bottom_navigation']['footer_bottom_navigation_color'] = [
+		'#type'           => 'select',
+		'#options'        => $navigation_color_options,
+		'#title'          => t('Variant color'),
+		'#description'    => t('Please select variant color'),
+		'#default_value'  => !empty(theme_get_setting('footer_bottom_navigation_color'))? theme_get_setting('footer_bottom_navigation_color') : 'on-white-background',
+  ];
+
+  // Notification field configuration.
+  $form['space_notification_type'] = [
+		'#type' => 'details',
+		'#title' => t('Notification'),
+		'#open' => FALSE,
+  ];
+
+  $form['space_notification_type']['notification_align_options'] = [
+		'#type'           => 'select',
+		'#options'        => $notification_align_options,
+		'#title'          => t('Notification alignment'),
+		'#description'    => t('Please select alignment'),
+		'#default_value'  => !empty(theme_get_setting('notification_align_options'))? theme_get_setting('notification_align_options') : 'left',
+  ];
+
+  $form['space_notification_type']['notification_size_options'] = [
+		'#type'           => 'select',
+		'#options'        => $notification_size_options,
+		'#title'          => t('Notification size'),
+		'#description'    => t('Please select size'),
+		'#default_value'  => !empty(theme_get_setting('notification_size_options'))? theme_get_setting('notification_size_options') : 'small',
+  ];
+
+  $form['space_notification_type']['notification_bg_options'] = [
+		'#type'           => 'select',
+		'#options'        => $notification_bg_options,
+		'#title'          => t('Notification background color'),
+		'#description'    => t('Please select Background color'),
+		'#default_value'  => !empty(theme_get_setting('notification_bg_options'))? theme_get_setting('notification_bg_options') : 'dark',
+  ];
+
+  $form['space_notification_type']['notification_layout_options'] = [
+		'#type'           => 'select',
+		'#options'        => $notification_layout_options,
+		'#title'          => t('Notification layout'),
+		'#description'    => t('Please select layout'),
+		'#default_value'  => !empty(theme_get_setting('notification_layout_options'))? theme_get_setting('notification_layout_options') : 'oneline',
+  ];
+
+  $form['space_notification_type']['notification_icon_visibility'] = [
+    '#type'           => 'checkbox',
+    '#title'          => t('show notification icon'),
+    '#description'    => t('uncheck if you want to hide notification icon'),
+    '#default_value'  => !empty(theme_get_setting('notification_icon_visibility'))? theme_get_setting('notification_icon_visibility') : 0,
+  ];
+
+  // Breadcrumb field configuration.
+  $form['space_breadcrumb_type'] = [
+	  '#type' => 'details',
+	  '#title' => t('Breadcrumb'),
+	  '#open' => FALSE,
+  ];
+
+  $form['space_breadcrumb_type']['breadcrumb_variation_options'] = [
+    '#type'           => 'select',
+    '#options'        => $breadcrumb_variation_options,
+    '#title'          => t('Breadcrumb Variation'),
+    '#description'    => t('Please select breadcrumb variation<br><em>Note:- Collapse will work on 4 or more links.</em>'),
+    '#default_value'  => !empty(theme_get_setting('breadcrumb_variation_options'))? theme_get_setting('breadcrumb_variation_options') : 'expanded',
+  ];
+
+  $form['space_breadcrumb_type']['breadcrumb_style_options'] = [
+    '#type'           => 'select',
+    '#options'        => $breadcrumb_style_options,
+    '#title'          => t('Breadcrumb Style'),
+    '#description'    => t('Please select breadcrumb style'),
+    '#default_value'  => !empty(theme_get_setting('breadcrumb_style_options'))? theme_get_setting('breadcrumb_style_options') : 'no-fill',
+  ];
+
+  $form['space_breadcrumb_type']['breadcrumb_homepage_option'] = [
+    '#type'           => 'checkbox',
+    '#title'          => t('Show breadcrumb on homepage '),
+    '#description'    => t('check if you want to show breadcrumb on frontpage'),
+    '#default_value'  => !empty(theme_get_setting('breadcrumb_homepage_option'))? theme_get_setting('breadcrumb_homepage_option') : 0,
+  ];
+
+	// Login Signup configuration.
+	$form['space_login_type'] = [
+	  '#type' => 'details',
+	  '#title' => t('Login'),
+	  '#open' => FALSE,
+  ];
+
+	$form['space_login_type']['login_variation_options'] = [
+    '#type'           => 'select',
+    '#options'        => $login_signup_variation,
+    '#title'          => t('Login Variation'),
+    '#description'    => t('Please select login variation'),
+    '#default_value'  => !empty(theme_get_setting('login_variation_options'))? theme_get_setting('login_variation_options') : 'simple-social',
+  ];
+
+	$form['space_login_type']['login_form_headline'] = [
+    '#type'           => 'textfield',
+		'#title' 					=> t('Login Headline Text'),
+    '#default_value'  => !empty(theme_get_setting('login_form_headline'))? theme_get_setting('login_form_headline') : 'Login to your account',
+  ];
+
+	$form['space_login_type']['login_form_subheadline'] = [
+    '#type'           => 'textfield',
+		'#title' 					=> t('Login Sub-Headline Text'),
+    '#default_value'  => !empty(theme_get_setting('login_form_subheadline'))? theme_get_setting('login_form_subheadline') : 'Welcome back! Please enter your details.',
+  ];
+
+	$form['space_login_type']['login_using_google'] = [
+    '#type'           => 'checkbox',
+    '#title'          => t('Login using Google'),
+    '#description'    => t('uncheck if you want to hide google login'),
+    '#default_value'  => !empty(theme_get_setting('login_using_google'))? theme_get_setting('login_using_google') : 0,
+  ];
+
+	$form['space_login_type']['login_using_facebook'] = [
+    '#type'           => 'checkbox',
+    '#title'          => t('Login using Facebook'),
+    '#description'    => t('uncheck if you want to hide facebook login'),
+    '#default_value'  => !empty(theme_get_setting('login_using_facebook'))? theme_get_setting('login_using_facebook') : 0,
+  ];
+
+	$form['space_login_type']['login_using_apple'] = [
+    '#type'           => 'checkbox',
+    '#title'          => t('Login using Apple'),
+    '#description'    => t('uncheck if you want to hide apple login'),
+    '#default_value'  => !empty(theme_get_setting('login_using_apple'))? theme_get_setting('login_using_apple') : 0,
+  ];
+
+	$form['space_login_type']['copyright_splitcarousel'] = [
+    '#type'           => 'textfield',
+		'#title' 					=> t('Copyright Footer text'),
+    '#default_value'  => !empty(theme_get_setting('copyright_splitcarousel'))? theme_get_setting('copyright_splitcarousel') : '© SPACE 2022',
+  ];
+
+	$form['space_login_type']['splitimage_email'] = [
+    '#type'           => 'textfield',
+		'#title' 					=> t('Footer Email'),
+    '#default_value'  => !empty(theme_get_setting('splitimage_email'))? theme_get_setting('splitimage_email') : 'help@spaceui.com',
+  ];
+
+	// Login Signup configuration.
+	$form['space_signup_type'] = [
+	  '#type' => 'details',
+	  '#title' => t('Signup'),
+	  '#open' => FALSE,
+  ];
+
+	$form['space_signup_type']['signup_variation_options'] = [
+    '#type'           => 'select',
+    '#options'        => $login_signup_variation,
+    '#title'          => t('Signup Variation'),
+    '#description'    => t('Please select signup variation'),
+    '#default_value'  => !empty(theme_get_setting('signup_variation_options'))? theme_get_setting('signup_variation_options') : 'simple-social',
+  ];
+
+	$form['space_signup_type']['signup_form_headline'] = [
+    '#type'           => 'textfield',
+		'#title' 					=> t('Signup Headline Text'),
+    '#default_value'  => !empty(theme_get_setting('signup_form_headline'))? theme_get_setting('signup_form_headline') : 'Create an account',
+  ];
+
+	$form['space_signup_type']['signup_form_subheadline'] = [
+    '#type'           => 'textfield',
+		'#title' 					=> t('Signup Sub-Headline Text'),
+    '#default_value'  => !empty(theme_get_setting('signup_form_subheadline'))? theme_get_setting('signup_form_subheadline') : 'Start your 30-day free trial.',
+  ];
+
+	$form['space_signup_type']['signup_using_google'] = [
+    '#type'           => 'checkbox',
+    '#title'          => t('Signup using Google'),
+    '#description'    => t('uncheck if you want to hide google signup'),
+    '#default_value'  => !empty(theme_get_setting('signup_using_google'))? theme_get_setting('signup_using_google') : 0,
+  ];
+
+	$form['space_signup_type']['signup_using_facebook'] = [
+    '#type'           => 'checkbox',
+    '#title'          => t('Signup using Facebook'),
+    '#description'    => t('uncheck if you want to hide facebook signup'),
+    '#default_value'  => !empty(theme_get_setting('signup_using_facebook'))? theme_get_setting('signup_using_facebook') : 0,
+  ];
+
+	$form['space_signup_type']['signup_using_apple'] = [
+    '#type'           => 'checkbox',
+    '#title'          => t('Signup using Apple'),
+    '#description'    => t('uncheck if you want to hide apple signup'),
+    '#default_value'  => !empty(theme_get_setting('signup_using_apple'))? theme_get_setting('signup_using_apple') : 0,
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for block.html.twig.
+ */
+function space_preprocess_block(&$vars) {
+  $vars['#cache']['max-age'] = 0;
+}
