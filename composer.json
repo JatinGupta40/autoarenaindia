@@ -24,7 +24,7 @@
         "drupal/libraries": "^4.0",
         "drupal/superfish": "^1.4",
         "drupal/ui_patterns": "1.10",
-        "drush/drush": "^11.4"
+        "drush/drush": "^12.4"
     },
     "conflict": {
         "drupal/drupal": "*"
