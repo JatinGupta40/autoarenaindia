@@ -1,0 +1,9 @@
+uuid: 1f3ef666-fec5-4b48-abc2-491e31030c80
+langcode: en
+status: true
+dependencies: {  }
+name: 'Type of News'
+vid: type_of_news
+description: 'Tags- Launch, Review, Comparison, Upcoming, EV'
+weight: 0
+new_revision: false

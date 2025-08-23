@@ -1,0 +1,29 @@
+uuid: 0e946041-1f8a-478c-a41a-c84d463dfae9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_car
+    - node.type.car_variants
+    - node.type.cars
+id: node.car_variants.field_car
+field_name: field_car
+entity_type: node
+bundle: car_variants
+label: Car
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      cars: cars
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

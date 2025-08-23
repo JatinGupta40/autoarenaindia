@@ -1,0 +1,9 @@
+uuid: 27b48011-a645-4ebc-97cb-a667f4e1f2eb
+langcode: en
+status: true
+dependencies: {  }
+name: Brands
+vid: brands
+description: 'All car brands'
+weight: 0
+new_revision: false

@@ -1,0 +1,34 @@
+uuid: 238da66f-b688-4323-8b94-0e1c38943b2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.car_variants.body
+    - field.field.node.car_variants.field_car
+    - field.field.node.car_variants.field_price
+    - node.type.car_variants
+  module:
+    - text
+    - user
+id: node.car_variants.teaser
+targetEntityType: node
+bundle: car_variants
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_car: true
+  field_price: true

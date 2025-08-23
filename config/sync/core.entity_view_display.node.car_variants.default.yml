@@ -1,0 +1,46 @@
+uuid: e5d8ade7-ad70-4be1-8a73-d6a30bf280ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.car_variants.body
+    - field.field.node.car_variants.field_car
+    - field.field.node.car_variants.field_price
+    - node.type.car_variants
+  module:
+    - text
+    - user
+id: node.car_variants.default
+targetEntityType: node
+bundle: car_variants
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_car:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_price:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

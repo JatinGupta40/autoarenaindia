@@ -22,6 +22,7 @@
         "drupal/core-recommended": "^10",
         "drupal/ds": "^3.16",
         "drupal/libraries": "^4.0",
+        "drupal/pathauto": "^1.13",
         "drupal/superfish": "^1.4",
         "drupal/ui_patterns": "1.10",
         "drush/drush": "^12.4"
