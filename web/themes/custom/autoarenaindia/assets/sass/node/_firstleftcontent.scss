@@ -1,0 +1,197 @@
+@import '../fonts';
+aside {
+  display: none;
+}
+.left-video-wrapper {
+  display: none;
+  .live-video {
+    .news_video_left {
+      video{
+        display: none;
+      }
+    }
+  }
+  .sidebar-first {
+    display: none;
+  }
+}
+
+@media screen and (min-width:1024px) {
+  aside {
+    display: block;
+  }
+  .left-video-wrapper {
+    display: block;
+    border: 1px solid $lightblueborder;
+    background-color: $white;
+    padding: 16px;
+    margin-bottom: 20px;
+    .live-video {
+      .news_video_left {
+        video{
+          display: block;
+          width: 100%;
+          height: auto;
+          margin-bottom: 12px;
+        }
+      }
+    }
+    .sidebar-first {
+      display: flex;
+      .fox_and_friends {
+        p {
+          font-size: 16px;
+          a {
+            color: $headerbg;
+            text-decoration: none;
+            font-weight: 700;
+            img {
+              width: 40px;
+              margin: 0;
+              height: auto;
+              margin-right: 8px;  
+            }
+          }
+        }
+      } 
+      .on-now {
+        .on-now-label {
+          .fox_and_friends {
+            .pill {
+              background: $darkred;
+              width: 30%;
+              line-height: 10px;
+              font-size: 9px;
+              padding: 4px 6px 4px 6px;
+              font-weight: bold;
+              margin-bottom: 2px;
+              a {
+                color: $white;
+                border: 1px solid $darkred;
+                margin-bottom: 6px;
+                text-decoration: none;
+              }
+            }
+          } 
+        }
+      }
+      .on-now {
+        .on-now-label {
+          .fox_and_friends {
+            .pill {
+              background: $darkred;
+              width: 30%;
+              line-height: 10px;
+              font-size: 9px;
+              padding: 4px 6px 4px 6px;
+              font-weight: bold;
+              margin-bottom: 2px;
+              a {
+                color: $white;
+                border: 1px solid $darkred;
+                margin-bottom: 6px;
+                text-decoration: none;
+              }
+            }
+          } 
+        }
+      }
+    }
+  
+    // Exclusive clips
+    .fox_and_friends {
+      p {
+        margin: 0;
+      }
+    }
+    .left-exclusive-clips {
+      .views-row {
+        padding: 16px 0 0 0;
+        grid-template-columns: 150px 110px;
+        line-height: 14px;
+        font-weight: 700;
+        .views-field-field-videos {
+          margin-right: 12px;
+          grid-row: 1 / span 2;
+        }
+        .views-field-field-fox-and-friends {
+          color: $darkred;
+          p {
+            margin: 0;
+            font-size: $type;
+          }
+          p:hover {
+            text-decoration: underline;
+          }
+        }
+        .views-field-title a {
+            text-decoration: none;
+            color: $headerbg;
+            font-size: $exclusiveclipstext;
+        }
+        .views-field-title a:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (min-width:768px) {
+  aside {
+    display: block;
+  }
+  .left-video-wrapper {
+    .sidebar-first { THEME DEBUG 
+      .on-now {
+        .on-now-label {
+          .fox_and_friends {
+            .pill {
+              width: 40%;
+            }
+          }
+        }
+        .fox_and_friends {
+          p {
+            font-size: 12px;
+          }
+        } 
+      }
+    }
+    .left-exclusive-clips {
+      .views-row {
+        padding: 16px 0 16px 0;
+        border-bottom: 1px solid $lightblueborder;
+        grid-template-columns: 150px 110px;
+        line-height: 14px;
+        font-weight: 700;
+        .views-field-field-videos {
+          margin-right: 12px;
+          
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width:1280px) {
+  .left-video-wrapper {
+    .left-exclusive-clips {
+      .views-row {
+        padding: 16px 0 16px 0;
+        display: grid;         
+        grid-template-columns: 150px 110px;
+        line-height: 14px;
+        font-weight: 700;
+      }
+      .views-row:last-child{
+        border-bottom: 0;
+      }
+
+    }
+  }
+
+}
+
+
