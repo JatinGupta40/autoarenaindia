@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\comment\Functional;
 
 use Drupal\Core\Language\LanguageInterface;
@@ -21,14 +23,12 @@ class CommentCSSTest extends CommentTestBase {
    * The theme to install as the default for testing.
    *
    * @var string
-   *
-   * @todo This test's reliance on classes makes Stark a bad fit as a base
-   *   theme. Change the default theme to Starterkit once it is stable.
-   *
-   * @see https://www.drupal.org/project/drupal/issues/3267890
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'starterkit_theme';
 
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp(): void {
     parent::setUp();
 
@@ -42,7 +42,7 @@ class CommentCSSTest extends CommentTestBase {
   /**
    * Tests CSS classes on comments.
    */
-  public function testCommentClasses() {
+  public function testCommentClasses(): void {
     // Create all permutations for comments, users, and nodes.
     $parameters = [
       'node_uid' => [0, $this->webUser->id()],

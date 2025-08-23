@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\system\Functional\Theme;
 
 use Drupal\Tests\BrowserTestBase;
@@ -12,9 +14,7 @@ use Drupal\Tests\BrowserTestBase;
 class ThemeInfoTest extends BrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = ['theme_test'];
 
@@ -56,9 +56,9 @@ class ThemeInfoTest extends BrowserTestBase {
   }
 
   /**
-   * Tests stylesheets-remove.
+   * Tests libraries-override.
    */
-  public function testStylesheets() {
+  public function testStylesheets(): void {
     $this->themeInstaller->install(['test_basetheme', 'test_subtheme']);
     $this->config('system.theme')
       ->set('default', 'test_subtheme')
@@ -87,7 +87,7 @@ class ThemeInfoTest extends BrowserTestBase {
   /**
    * Tests that changes to the info file are picked up.
    */
-  public function testChanges() {
+  public function testChanges(): void {
     $this->themeInstaller->install(['test_theme']);
     $this->config('system.theme')->set('default', 'test_theme')->save();
     $this->themeManager->resetActiveTheme();
@@ -95,13 +95,13 @@ class ThemeInfoTest extends BrowserTestBase {
     $active_theme = $this->themeManager->getActiveTheme();
     // Make sure we are not testing the wrong theme.
     $this->assertEquals('test_theme', $active_theme->getName());
-    $this->assertEquals(['classy/base', 'classy/messages', 'core/normalize', 'test_theme/global-styling'], $active_theme->getLibraries());
+    $this->assertEquals(['starterkit_theme/base', 'starterkit_theme/messages', 'core/normalize', 'test_theme/global-styling'], $active_theme->getLibraries());
 
     // @see theme_test_system_info_alter()
     $this->state->set('theme_test.modify_info_files', TRUE);
     $this->resetAll();
     $active_theme = $this->themeManager->getActiveTheme();
-    $this->assertEquals(['classy/base', 'classy/messages', 'core/normalize', 'test_theme/global-styling', 'core/once'], $active_theme->getLibraries());
+    $this->assertEquals(['starterkit_theme/base', 'starterkit_theme/messages', 'core/normalize', 'test_theme/global-styling', 'core/once'], $active_theme->getLibraries());
   }
 
 }

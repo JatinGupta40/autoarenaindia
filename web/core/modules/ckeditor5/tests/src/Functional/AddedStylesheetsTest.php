@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\ckeditor5\Functional;
 
 use Drupal\ckeditor5\Plugin\Editor\CKEditor5;
@@ -7,6 +9,7 @@ use Drupal\editor\Entity\Editor;
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\user\RoleInterface;
+use Drupal\user\Entity\User;
 use Symfony\Component\Validator\ConstraintViolation;
 
 /**
@@ -34,14 +37,14 @@ class AddedStylesheetsTest extends BrowserTestBase {
    *
    * @var \Drupal\editor\Entity\Editor
    */
-  protected $editor;
+  protected Editor $editor;
 
   /**
    * The admin user.
    *
    * @var \Drupal\user\Entity\User
    */
-  protected $adminUser;
+  protected User $adminUser;
 
   /**
    * {@inheritdoc}
@@ -91,13 +94,13 @@ class AddedStylesheetsTest extends BrowserTestBase {
   /**
    * Test the ckeditor5-stylesheets theme config.
    */
-  public function testCkeditorStylesheets() {
+  public function testCkeditorStylesheets(): void {
     $assert_session = $this->assertSession();
 
     /** @var \Drupal\Core\Extension\ThemeInstallerInterface $theme_installer */
     $theme_installer = \Drupal::service('theme_installer');
-    $theme_installer->install(['test_ckeditor_stylesheets_relative', 'seven']);
-    $this->config('system.theme')->set('admin', 'seven')->save();
+    $theme_installer->install(['test_ckeditor_stylesheets_relative', 'claro']);
+    $this->config('system.theme')->set('admin', 'claro')->save();
     $this->config('node.settings')->set('use_admin_theme', TRUE)->save();
 
     $this->drupalGet('node/add/article');

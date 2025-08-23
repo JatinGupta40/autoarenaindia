@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\rest\Unit;
 
 use Drupal\Tests\UnitTestCase;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\rest\Plugin\views\display\RestExport;
+use Drupal\views\Entity\View;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
@@ -39,10 +42,7 @@ class CollectRoutesTest extends UnitTestCase {
       ->disableOriginalConstructor()
       ->getMock();
 
-    $view = $this->getMockBuilder('\Drupal\views\Entity\View')
-      ->addMethods(['initHandlers'])
-      ->setConstructorArgs([['id' => 'test_view'], 'view'])
-      ->getMock();
+    $view = new View(['id' => 'test_view'], 'view');
 
     $view_executable = $this->getMockBuilder('\Drupal\views\ViewExecutable')
       ->onlyMethods(['initHandlers', 'getTitle'])
@@ -85,7 +85,7 @@ class CollectRoutesTest extends UnitTestCase {
     $container->set('authentication_collector', $authentication_collector);
     $authentication_collector->expects($this->any())
       ->method('getSortedProviders')
-      ->will($this->returnValue(['basic_auth' => 'data', 'cookie' => 'data']));
+      ->willReturn(['basic_auth' => 'data', 'cookie' => 'data']);
 
     $container->setParameter('serializer.format_providers', ['json']);
 
@@ -105,7 +105,7 @@ class CollectRoutesTest extends UnitTestCase {
 
     $display_manager->expects($this->once())
       ->method('getDefinition')
-      ->will($this->returnValue(['id' => 'test', 'provider' => 'test']));
+      ->willReturn(['id' => 'test', 'provider' => 'test']);
 
     $none = $this->getMockBuilder('\Drupal\views\Plugin\views\access\None')
       ->disableOriginalConstructor()
@@ -113,7 +113,7 @@ class CollectRoutesTest extends UnitTestCase {
 
     $access_manager->expects($this->once())
       ->method('createInstance')
-      ->will($this->returnValue($none));
+      ->willReturn($none);
 
     $style_plugin = $this->getMockBuilder('\Drupal\rest\Plugin\views\style\Serializer')
       ->onlyMethods(['getFormats', 'init'])
@@ -122,16 +122,16 @@ class CollectRoutesTest extends UnitTestCase {
 
     $style_plugin->expects($this->once())
       ->method('getFormats')
-      ->will($this->returnValue(['json']));
+      ->willReturn(['json']);
 
     $style_plugin->expects($this->once())
       ->method('init')
       ->with($view_executable)
-      ->will($this->returnValue(TRUE));
+      ->willReturn(TRUE);
 
     $style_manager->expects($this->once())
       ->method('createInstance')
-      ->will($this->returnValue($style_plugin));
+      ->willReturn($style_plugin);
 
     $this->routes = new RouteCollection();
     $this->routes->add('test_1', new Route('/test/1'));
@@ -143,7 +143,7 @@ class CollectRoutesTest extends UnitTestCase {
   /**
    * Tests if adding a requirement to a route only modify one route.
    */
-  public function testRoutesRequirements() {
+  public function testRoutesRequirements(): void {
     $this->restExport->collectRoutes($this->routes);
 
     $requirements_1 = $this->routes->get('test_1')->getRequirements();

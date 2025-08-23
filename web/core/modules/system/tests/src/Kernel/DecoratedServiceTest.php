@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\system\Kernel;
 
+use Drupal\Component\DependencyInjection\ReverseContainer;
 use Drupal\decorated_service_test\TestServiceDecorator;
 use Drupal\KernelTests\KernelTestBase;
 
@@ -12,6 +15,9 @@ use Drupal\KernelTests\KernelTestBase;
  */
 class DecoratedServiceTest extends KernelTestBase {
 
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'decorated_service_test',
   ];
@@ -19,15 +25,15 @@ class DecoratedServiceTest extends KernelTestBase {
   /**
    * Check that decorated services keep their original service ID.
    */
-  public function testDecoratedServiceId() {
+  public function testDecoratedServiceId(): void {
     // Service decorated once.
     $test_service = $this->container->get('test_service');
-    $this->assertEquals('test_service', $test_service->_serviceId);
+    $this->assertEquals('test_service', $this->container->get(ReverseContainer::class)->getId($test_service));
     $this->assertInstanceOf(TestServiceDecorator::class, $test_service);
 
     // Service decorated twice.
     $test_service2 = $this->container->get('test_service2');
-    $this->assertEquals('test_service2', $test_service2->_serviceId);
+    $this->assertEquals('test_service2', $this->container->get(ReverseContainer::class)->getId($test_service2));
     $this->assertInstanceOf(TestServiceDecorator::class, $test_service2);
   }
 
