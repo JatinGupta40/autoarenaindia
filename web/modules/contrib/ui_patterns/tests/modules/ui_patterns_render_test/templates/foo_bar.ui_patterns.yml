@@ -1,5 +1,0 @@
-foo_bar:
-  label: Foo Bar
-  variants:
-    default:
-      label: Default
