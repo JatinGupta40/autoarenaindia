@@ -1,0 +1,23 @@
+space.small:
+  label: Small
+  mediaQuery: '(min-width: 0px) and (max-width: 639px)'
+  weight: 0
+  multipliers:
+    - 1x
+    - 2x
+
+space.medium:
+  label: Medium
+  mediaQuery: 'all and (min-width: 640px) and (max-width: 1023px)'
+  weight: 1
+  multipliers:
+    - 1x
+    - 2x
+
+space.large:
+  label: Large
+  mediaQuery: 'all and (min-width: 1024px)'
+  weight: 2
+  multipliers:
+    - 1x
+    - 2x

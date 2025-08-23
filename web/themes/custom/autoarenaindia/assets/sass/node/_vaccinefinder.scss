@@ -1,0 +1,52 @@
+.vaccine-finder {
+  .webform-flex--1 {
+    .webform-flex--container {
+      margin: 0;
+      .form-item-image {
+        ul
+        {
+          .thumbnail {
+            background: $white;
+            border: 0;  
+            position: absolute;
+            right: 0;
+          }  
+        }
+      }
+    }
+  }
+  .checkbox {
+    margin-top: 8px;  
+  }
+  .zip-code {
+    margin-bottom: 12px;
+    margin-top: 18px;
+    label {
+      color: #222;
+      font-size: 14px;
+      line-height: 21px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }  
+    input {
+      width: calc(100% - 32px);
+      height: 45px;
+      padding: 0 16px;
+      color: $grey;
+      margin-top: 8px;  
+    }
+  }
+  .zip-code-button {
+    input {  
+      width: 100%;
+      padding: 16px; 
+      color: $white; 
+      text-decoration: none; 
+      border-radius: 3px; 
+      background: $headerbg; 
+      font-size: $text;
+      border: 0;
+    }
+  }
+}
+

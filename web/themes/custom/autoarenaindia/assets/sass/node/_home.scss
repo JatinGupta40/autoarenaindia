@@ -1,0 +1,172 @@
+@import '../color';
+@import '../fonts';
+
+.home-content {
+  .home-page-top-news {
+    .views-field-field-top-news-image img {
+      width: 100%;
+      height: auto;
+    }
+    .views-field-field-top-news-short-title {
+      margin-top: -37px;
+      a{
+      background: $headerbg;
+      opacity: 0.8;
+      text-decoration: none;
+      color: $white;
+      font-weight: 700;
+      letter-spacing: .5px;
+      font-size: $newsheading;
+      padding: 5px 20px 5px 20px;
+      } 
+    }
+    .views-field-field-top-news-link-1 {
+      padding: 15px 12px 16px;
+      a {
+        text-decoration: none;
+        color: $darkred;
+        font-size: $newsheading;
+        font-weight: 700;
+        line-height: 28px;
+      }
+    }
+  }
+  // Home Page (second) 4 News
+  .home-4-news {
+    .views-row {
+      .views-field-field-image-with-li img {
+        width: 100%;
+        height: auto;
+      }
+      .views-field-field-news-category {
+        background: $headerbg;
+        opacity: 0.8;
+        font-weight: 700;
+        color: $white;
+        padding: 5px 0 5px 8px;
+        text-transform: uppercase;
+        margin-top: -52px;
+        p {
+          margin: 0;
+        }
+      }
+      .views-field-title {
+        padding: 10px 10px 0 10px;
+        a {
+          text-decoration: none;
+          color: $headerbg;
+          font-size: $newsheading;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+  // Home Page Other Bunch(32) of News.
+  .home-other-news {
+    .other-news-fields {
+      padding-bottom: 6px;
+      border-bottom: 1px solid $lightblueborder;
+      padding-top: 12px;
+      p {
+        margin: 0;
+        text-decoration: none;
+      }
+      .views-field-field-image {
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+      .views-field-field-news-category {
+        padding: 8px 0 0 16px; 
+        text-transform: uppercase;
+        a {
+        color: $relatabletext;
+        font-size: $type ;
+        line-height: 14px; 
+        font-weight: 700;
+        text-decoration: none;
+        }
+      }
+      .views-field-title {
+        padding: 8px 16px 20px 16px;
+        a {
+          color: $headerbg;
+          font-size: $newsheading;
+          line-height: 24px; 
+          text-decoration: none;font-weight: 700;
+        }
+      }
+    }
+    .other-news-fields:first {
+      padding-top: 0;
+    }
+    .other-news-fields:last-child {
+      border-bottom: 1px solid $lightblueborder;
+    }
+  }
+}
+
+
+@media (min-width: 768px) {
+  .home-content { 
+    // Home Page Top News
+    .home-page-top-news {
+      .views-field-field-top-news-short-title a{
+        top: -37px;
+      }
+      .views-field-field-top-news-link-1 {
+        padding: 8px 12px 16px;
+        a {
+          text-decoration: none;
+          color: $darkred;
+          font-size: $newsheading;
+          font-weight: 700;
+          line-height: 30px;
+        }
+      }
+    }
+    // Home Page (second) 4 News
+    .home-4-news {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      margin: 0 0 0 0;
+      border-bottom: 1px solid $lightblueborder;
+      .views-row {
+        padding-right: 12px;
+        padding-left: 12px;
+        .views-field-title {
+          padding: 10px 10px 20px 10px;
+          a {
+          font-size: $text;
+          }
+        }
+      }
+    }
+    // Home Page (third) Other News
+    .home-other-news {
+      padding: 0 14px 14px 14px;
+      .other-news-fields {
+        display: grid;
+        grid-template-columns: 168px calc(100% - 168px); // 156px width + 12px margin 
+        .views-field-field-image {
+          grid-row: 1 / span 2;
+          img {
+            width: 156px;
+            height: 87.75px;
+          }
+        }
+        .views-field-title a {
+          font-size: $heading;
+          text-decoration: none;
+        }
+      }
+      .other-news-fields:first {
+        padding-top: 0;
+      }
+      .other-news-fields:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+}

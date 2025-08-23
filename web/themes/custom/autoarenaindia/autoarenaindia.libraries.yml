@@ -1,0 +1,42 @@
+global:
+  version: 1.0
+  css:
+    theme:
+      assets/css/All/style.css: { }
+  js:
+    assets/js/headerhamburger.js: { }
+    assets/js/hoverVideoPlay.js: { }
+    assets/js/autoplay.js: { }
+    assets/js/search.js: { }
+    assets/js/bottomNewsLinksBlock.js: { }
+
+# card:
+#   css:
+#     component:
+#       space-assets://card.css:
+#         preprocess: true
+#   js:
+#     space-assets://behaviors/card.js:
+#       preprocess: true
+
+# card-carousel:
+#   css:
+#     component:
+#       space-assets://card-carousel.css:
+#         preprocess: true
+#   theme:
+#       https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/css/splide-core.min.css: { type: external, minified: true }
+
+# sticky-component:
+#   css:
+#     component:
+#       space-assets://sticky-content.css:
+#        preprocess: true
+#       space-assets://sticky.css:
+#        preprocess: true
+#       space-assets://sticky-slider.css:
+#        preprocess: true
+#       https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/css/splide-core.min.css: { type: external, minified: true }
+#   js:
+#     space-assets://behaviors/sticky.js:
+#       preprocess: true

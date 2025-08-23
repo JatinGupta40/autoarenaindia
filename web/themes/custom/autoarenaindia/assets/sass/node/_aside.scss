@@ -1,0 +1,29 @@
+.home-page {
+  display: flex;
+  .sidebar-left {
+    width: 22%;
+    margin-left: 16px;
+    margin-right: 12px;
+  }
+  .home-content {
+    width: 100%;  
+  }
+  .sidebar-right {
+    width: 22%;
+    margin-top: 12em;
+    margin-left: 12px;
+    margin-right: 16px;
+    justify-content: right;
+  }
+}
+
+@media (min-width: 1280px) {
+  .home-page {
+    padding-top: 12px; 
+     .home-content {
+      width: calc(100% - 44%);
+      border: 1px solid $lightblueborder;
+    }
+  }
+}
+
