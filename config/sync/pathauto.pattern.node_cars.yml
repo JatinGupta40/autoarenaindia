@@ -1,0 +1,21 @@
+uuid: 55221475-2e30-4636-bcba-07a8dfe9151c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node_cars
+label: Cars
+type: 'canonical_entities:node'
+pattern: '/cars/[node:field_brand:entity:name]-[node:field_car_model:entity:name]-[node:field_year_start]'
+selection_criteria:
+  default:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      cars: cars
+selection_logic: and
+weight: 0
+relationships: {  }

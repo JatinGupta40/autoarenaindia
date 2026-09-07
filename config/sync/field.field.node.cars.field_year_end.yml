@@ -1,0 +1,23 @@
+uuid: b672f55e-79f9-4351-b837-af2a726fd80a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_year_end
+    - node.type.cars
+id: node.cars.field_year_end
+field_name: field_year_end
+entity_type: node
+bundle: cars
+label: 'Generation end year'
+description: 'Leave blank if this generation is still in production.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

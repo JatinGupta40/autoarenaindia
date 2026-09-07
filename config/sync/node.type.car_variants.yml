@@ -11,7 +11,7 @@ third_party_settings:
     parent: 'main:'
 name: 'Car Variants'
 type: car_variants
-description: null
+description: 'A trim/variant of a car, with its own price.'
 help: null
 new_revision: true
 preview_mode: 1

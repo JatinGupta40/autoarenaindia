@@ -4,14 +4,17 @@ status: true
 dependencies:
   config:
     - field.field.node.cars.body
+    - field.field.node.cars.field_body_type
     - field.field.node.cars.field_brand
     - field.field.node.cars.field_car_images
+    - field.field.node.cars.field_car_model
     - field.field.node.cars.field_engine_capacity
     - field.field.node.cars.field_fuel_type
     - field.field.node.cars.field_mileage
-    - field.field.node.cars.field_model
     - field.field.node.cars.field_price
     - field.field.node.cars.field_transmission
+    - field.field.node.cars.field_year_end
+    - field.field.node.cars.field_year_start
     - image.style.thumbnail
     - node.type.cars
   module:
@@ -39,6 +42,16 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_body_type:
+    type: entity_reference_autocomplete
+    weight: 121
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_brand:
     type: entity_reference_autocomplete
     weight: 122
@@ -56,6 +69,16 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_car_model:
+    type: entity_reference_autocomplete
+    weight: 122
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_engine_capacity:
     type: string_textfield
@@ -83,12 +106,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_model:
-    type: options_select
-    weight: 123
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_price:
     type: string_textfield
     weight: 129
@@ -107,6 +124,20 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_year_end:
+    type: number
+    weight: 124
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_year_start:
+    type: number
+    weight: 123
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   path:
     type: path
     weight: 30
@@ -119,6 +150,11 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
@@ -152,4 +188,10 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+  url_redirects:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_model: true

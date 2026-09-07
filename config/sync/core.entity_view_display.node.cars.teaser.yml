@@ -5,14 +5,17 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.cars.body
+    - field.field.node.cars.field_body_type
     - field.field.node.cars.field_brand
     - field.field.node.cars.field_car_images
+    - field.field.node.cars.field_car_model
     - field.field.node.cars.field_engine_capacity
     - field.field.node.cars.field_fuel_type
     - field.field.node.cars.field_mileage
-    - field.field.node.cars.field_model
     - field.field.node.cars.field_price
     - field.field.node.cars.field_transmission
+    - field.field.node.cars.field_year_end
+    - field.field.node.cars.field_year_start
     - node.type.cars
   module:
     - text
@@ -36,12 +39,15 @@ content:
     weight: 100
     region: content
 hidden:
+  field_body_type: true
   field_brand: true
   field_car_images: true
+  field_car_model: true
   field_engine_capacity: true
   field_fuel: true
   field_fuel_type: true
   field_mileage: true
-  field_model: true
   field_price: true
   field_transmission: true
+  field_year_end: true
+  field_year_start: true

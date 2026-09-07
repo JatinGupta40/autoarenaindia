@@ -11,7 +11,7 @@ third_party_settings:
     parent: 'main:'
 name: Cars
 type: cars
-description: null
+description: 'A single car generation: brand, model, year range, specs, price and images.'
 help: null
 new_revision: true
 preview_mode: 1

@@ -1,0 +1,20 @@
+uuid: 579cfae3-3bcf-482d-992a-28df4a10339c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_year_end
+field_name: field_year_end
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
