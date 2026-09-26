@@ -15,7 +15,7 @@ Drupal 10.5 runs headless. It exposes content through a read-only JSON:API. The 
 | `cars` (node) | A car **generation** (e.g. Hyundai Creta 2020) | `field_brand`, `field_car_model`, `field_body_type`, `field_year_start/end`, `field_car_images`, `field_variants` |
 | `car_variants` (node) | A trim/variant; **source of truth** for price and specs | `field_ex_showroom_price`, `field_engine_cc`, `field_power_bhp`, `field_mileage_kmpl`, `field_fuel_type`, `field_transmission` |
 | `news` (node) | News items | `field_images`, `field_type_of_news`, `field_related_car` |
-| `article` (node) | Blog posts | `field_image`, `field_tags`, `field_related_car` |
+| `blogs` (node, formerly `article`) | Blog posts | `field_image`, `field_tags`, `field_related_car` |
 
 Vocabularies: `brands`, `car_model`, `body_type`, `fuel`, `transmission`, `type_of_news`.
 
@@ -50,7 +50,7 @@ Two customisations support this workflow:
 - **URLs:** pathauto builds these aliases:
   - cars: `/cars/[brand]-[model]-[year_start]`
   - news: `/news/[title]`
-  - blog: `/blog/[title]`
+  - blogs: `/blog/[title]`
 - **Redirects and SEO:** redirect, metatag, simple_sitemap.
 - **API:** `jsonapi` is set to `read_only: true`.
 
