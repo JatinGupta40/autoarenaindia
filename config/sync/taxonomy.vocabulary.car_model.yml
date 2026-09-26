@@ -1,0 +1,9 @@
+uuid: 91595631-ff50-4ad7-af73-ff79922faaa0
+langcode: en
+status: true
+dependencies: {  }
+name: 'Car Model'
+vid: car_model
+description: 'Model nameplate, independent of generation/year (e.g. City, Swift, Baleno).'
+weight: 0
+new_revision: false

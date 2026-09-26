@@ -1,0 +1,29 @@
+uuid: 44a7d222-0523-4c43-ac09-0c9dcc3d520e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fuel_type
+    - node.type.cars
+    - taxonomy.vocabulary.fuel
+id: node.cars.field_fuel_type
+field_name: field_fuel_type
+entity_type: node
+bundle: cars
+label: 'Fuel Type'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      fuel: fuel
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

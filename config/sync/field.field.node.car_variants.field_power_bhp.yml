@@ -1,0 +1,23 @@
+uuid: f4ec4e1d-6774-456e-b12f-64be215fd19c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_power_bhp
+    - node.type.car_variants
+id: node.car_variants.field_power_bhp
+field_name: field_power_bhp
+entity_type: node
+bundle: car_variants
+label: 'Power (bhp)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

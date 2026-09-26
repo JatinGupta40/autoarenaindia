@@ -1,0 +1,27 @@
+uuid: 477b3b8b-90a3-4c27-b100-a176d7e4f5c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_car
+    - node.type.cars
+    - node.type.news
+id: node.news.field_related_car
+field_name: field_related_car
+entity_type: node
+bundle: news
+label: 'Related car'
+description: 'The specific car generation this story is about.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      cars: cars
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

@@ -1,0 +1,23 @@
+uuid: fa0f00a2-a2ab-4ea2-a5e6-727317f1c2df
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_year_start
+    - node.type.cars
+id: node.cars.field_year_start
+field_name: field_year_start
+entity_type: node
+bundle: cars
+label: 'Generation start year'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
