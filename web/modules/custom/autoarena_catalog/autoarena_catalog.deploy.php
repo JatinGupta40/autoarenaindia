@@ -8,6 +8,7 @@
  * type and field_car_variants already exist when they execute.
  */
 
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
@@ -23,6 +24,10 @@ use Drupal\paragraphs\Entity\Paragraph;
  * variant paragraphs are skipped, so the hook is safe to re-run.
  */
 function autoarena_catalog_deploy_variant_paragraphs(array &$sandbox): string {
+  // Sites built after phase 2 never had legacy variants.
+  if (!FieldStorageConfig::loadByName('node', 'field_variants')) {
+    return 'No legacy variants to migrate.';
+  }
   $storage = \Drupal::entityTypeManager()->getStorage('node');
   $ids = $storage->getQuery()
     ->accessCheck(FALSE)

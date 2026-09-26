@@ -25,21 +25,6 @@ function autoarena_catalog_node_presave(NodeInterface $node) {
 }
 
 /**
- * Implements hook_cloned_node_alter().
- *
- * Quick Node Clone duplicates the variant paragraphs itself. Only the legacy
- * node references need dropping, so a clone never points at the original's
- * car_variants nodes.
- *
- * @todo Remove with field_variants in phase 2 of the paragraph migration.
- */
-function autoarena_catalog_cloned_node_alter(NodeInterface $node, NodeInterface $original) {
-  if ($node->bundle() === 'cars' && $node->hasField('field_variants')) {
-    $node->set('field_variants', []);
-  }
-}
-
-/**
  * Recomputes a car's derived fields from its published variants.
  */
 function autoarena_catalog_summarize_variants(NodeInterface $car): void {

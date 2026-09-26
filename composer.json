@@ -24,7 +24,6 @@
         "drupal/custom_field": "^4.0",
         "drupal/decoupled_router": "^2.0",
         "drupal/ds": "^3.16",
-        "drupal/inline_entity_form": "^3.0",
         "drupal/libraries": "^4.0",
         "drupal/metatag": "^2.2",
         "drupal/paragraphs": "^1.23",
