@@ -27,7 +27,7 @@ jobs:
     # rules (e.g. required reviewers on production).
     environment: ${{ github.ref_name == 'main' && 'production' || github.ref_name == 'stage' && 'stage' || 'dev' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # Placeholder until hosting is chosen: replace with the real deploy
       # (e.g. drush deploy on the target after syncing code).
