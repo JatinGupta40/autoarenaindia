@@ -1,0 +1,29 @@
+uuid: 452c78cc-935e-42d6-aa8a-ea0fb1ebe352
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_transmission
+    - node.type.cars
+    - taxonomy.vocabulary.transmission
+id: node.cars.field_transmission
+field_name: field_transmission
+entity_type: node
+bundle: cars
+label: Transmission
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      transmission: transmission
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

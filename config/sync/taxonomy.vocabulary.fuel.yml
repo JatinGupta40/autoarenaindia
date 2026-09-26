@@ -1,0 +1,9 @@
+uuid: 906ffd1e-52c6-43c2-b624-9b64cc8fb134
+langcode: en
+status: true
+dependencies: {  }
+name: Fuel
+vid: fuel
+description: 'Type of fuel'
+weight: 0
+new_revision: false

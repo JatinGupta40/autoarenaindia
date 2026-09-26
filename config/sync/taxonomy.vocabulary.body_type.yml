@@ -1,0 +1,9 @@
+uuid: ef80d28a-1624-4be6-8e52-d9338c064c82
+langcode: en
+status: true
+dependencies: {  }
+name: 'Body Type'
+vid: body_type
+description: 'Hatchback, Sedan, SUV, MUV, Luxury'
+weight: 0
+new_revision: false

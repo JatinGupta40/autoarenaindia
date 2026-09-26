@@ -1,0 +1,53 @@
+uuid: a89bb6e7-7d16-402f-be14-40826b49bd36
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.cars.body
+    - field.field.node.cars.field_body_type
+    - field.field.node.cars.field_brand
+    - field.field.node.cars.field_car_images
+    - field.field.node.cars.field_car_model
+    - field.field.node.cars.field_fuel_type
+    - field.field.node.cars.field_price_max
+    - field.field.node.cars.field_price_min
+    - field.field.node.cars.field_transmission
+    - field.field.node.cars.field_variants
+    - field.field.node.cars.field_year_end
+    - field.field.node.cars.field_year_start
+    - node.type.cars
+  module:
+    - text
+    - user
+id: node.cars.teaser
+targetEntityType: node
+bundle: cars
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_body_type: true
+  field_brand: true
+  field_car_images: true
+  field_car_model: true
+  field_fuel: true
+  field_fuel_type: true
+  field_price_max: true
+  field_price_min: true
+  field_transmission: true
+  field_variants: true
+  field_year_end: true
+  field_year_start: true

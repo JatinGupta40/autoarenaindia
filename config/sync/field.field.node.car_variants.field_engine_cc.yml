@@ -1,0 +1,23 @@
+uuid: b8f071df-9252-4fb9-bd46-f6087c7eac97
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_engine_cc
+    - node.type.car_variants
+id: node.car_variants.field_engine_cc
+field_name: field_engine_cc
+entity_type: node
+bundle: car_variants
+label: 'Engine (cc)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

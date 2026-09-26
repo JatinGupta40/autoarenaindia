@@ -1,0 +1,23 @@
+uuid: f06839f1-74b2-46e5-b680-fb5a62753740
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_price_min
+    - node.type.cars
+id: node.cars.field_price_min
+field_name: field_price_min
+entity_type: node
+bundle: cars
+label: 'Starting price (₹)'
+description: 'Computed from published variants — do not edit.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

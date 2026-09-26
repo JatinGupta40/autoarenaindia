@@ -1,0 +1,28 @@
+uuid: d3a1a3fc-06e0-4404-8837-e01127083556
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_body_type
+    - node.type.cars
+    - taxonomy.vocabulary.body_type
+id: node.cars.field_body_type
+field_name: field_body_type
+entity_type: node
+bundle: cars
+label: 'Body Type'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      body_type: body_type
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+field_type: entity_reference
