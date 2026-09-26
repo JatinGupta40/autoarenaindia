@@ -9,11 +9,11 @@ dependencies:
     - field.field.node.cars.field_brand
     - field.field.node.cars.field_car_images
     - field.field.node.cars.field_car_model
+    - field.field.node.cars.field_car_variants
     - field.field.node.cars.field_fuel_type
     - field.field.node.cars.field_price_max
     - field.field.node.cars.field_price_min
     - field.field.node.cars.field_transmission
-    - field.field.node.cars.field_variants
     - field.field.node.cars.field_year_end
     - field.field.node.cars.field_year_start
     - node.type.cars
@@ -43,11 +43,11 @@ hidden:
   field_brand: true
   field_car_images: true
   field_car_model: true
+  field_car_variants: true
   field_fuel: true
   field_fuel_type: true
   field_price_max: true
   field_price_min: true
   field_transmission: true
-  field_variants: true
   field_year_end: true
   field_year_start: true

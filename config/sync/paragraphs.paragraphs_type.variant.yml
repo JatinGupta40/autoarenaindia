@@ -1,0 +1,10 @@
+uuid: 74e10e0e-9b32-48cd-8b42-7105b41af3b7
+langcode: en
+status: true
+dependencies: {  }
+id: variant
+label: Variant
+icon_uuid: null
+icon_default: null
+description: 'A trim of a car generation, with one row per powertrain (engine + transmission) it is sold with.'
+behavior_plugins: {  }

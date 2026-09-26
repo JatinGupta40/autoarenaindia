@@ -4,14 +4,15 @@
  * @file
  * Car / variant catalog behaviour.
  *
- * Variants (car_variants) are the source of truth for price and specs. The
- * parent car (a generation) carries derived summary fields — price range and
- * the union of fuel types / transmissions — so listings can filter and sort
- * on cars via JSON:API. Those fields are recomputed on every car save and are
- * never edited by hand.
+ * A car (generation) owns its variants as `variant` paragraphs in
+ * field_car_variants. Each variant lists the powertrains (engine +
+ * transmission) it is sold with in field_powertrains, and those rows are the
+ * source of truth for price and specs. The car carries derived summary fields
+ * — price range and the union of fuel types / transmissions — so listings can
+ * filter and sort on cars via JSON:API. Those fields are recomputed on every
+ * car save and are never edited by hand.
  */
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeInterface;
 
 /**
@@ -24,100 +25,27 @@ function autoarena_catalog_node_presave(NodeInterface $node) {
 }
 
 /**
- * Implements hook_ENTITY_TYPE_update() for node.
- */
-function autoarena_catalog_node_update(NodeInterface $node) {
-  if ($node->bundle() === 'car_variants') {
-    autoarena_catalog_resave_parent_cars($node);
-  }
-}
-
-/**
- * Implements hook_ENTITY_TYPE_delete() for node.
- */
-function autoarena_catalog_node_delete(NodeInterface $node) {
-  if ($node->bundle() === 'car_variants') {
-    autoarena_catalog_resave_parent_cars($node);
-  }
-}
-
-/**
- * Implements hook_cloned_node_alter().
- *
- * Quick Node Clone copies entity references as-is, so a cloned generation
- * would share its variants with the original. Give the clone its own unsaved
- * copies instead; Inline Entity Form saves them only if the clone is saved.
- */
-function autoarena_catalog_cloned_node_alter(NodeInterface $node, NodeInterface $original) {
-  if ($node->bundle() !== 'cars') {
-    return;
-  }
-  $copies = [];
-  foreach ($original->get('field_variants')->referencedEntities() as $variant) {
-    $copies[] = $variant->createDuplicate();
-  }
-  $node->set('field_variants', $copies);
-}
-
-/**
- * Implements hook_inline_entity_form_table_fields_alter().
- */
-function autoarena_catalog_inline_entity_form_table_fields_alter(array &$fields, array $context) {
-  if ($context['entity_type'] === 'node' && in_array('car_variants', $context['allowed_bundles'], TRUE)) {
-    $fields['field_ex_showroom_price'] = [
-      'type' => 'field',
-      'label' => t('Ex-showroom price (₹)'),
-      'weight' => 2,
-    ];
-  }
-}
-
-/**
- * Implements hook_inline_entity_form_reference_form_alter().
- *
- * The "Add existing variant" autocomplete would otherwise keep suggesting
- * variants already attached to this car. Swap in a selection handler that
- * excludes them; it also rejects them on validation.
- */
-function autoarena_catalog_inline_entity_form_reference_form_alter(array &$reference_form, FormStateInterface &$form_state) {
-  $settings = &$reference_form['entity_id']['#selection_settings'];
-  if (($settings['target_bundles'] ?? []) !== ['car_variants' => 'car_variants']) {
-    return;
-  }
-  $exclude = [];
-  foreach ($form_state->get(['inline_entity_form', $reference_form['#ief_id'], 'entities']) ?? [] as $value) {
-    if (!empty($value['entity']) && !$value['entity']->isNew()) {
-      $exclude[] = (int) $value['entity']->id();
-    }
-  }
-  $reference_form['entity_id']['#selection_handler'] = 'autoarena_exclude:node';
-  $settings['exclude_ids'] = $exclude;
-}
-
-/**
  * Recomputes a car's derived fields from its published variants.
  */
 function autoarena_catalog_summarize_variants(NodeInterface $car): void {
-  // Drop references to variants that no longer exist.
-  $car->get('field_variants')->filter(fn($item) => $item->entity !== NULL);
-
   $prices = [];
   $fuels = [];
   $transmissions = [];
-  foreach ($car->get('field_variants') as $item) {
+  foreach ($car->get('field_car_variants') as $item) {
     $variant = $item->entity;
-    if (!$variant->isPublished()) {
+    if (!$variant || !$variant->isPublished()) {
       continue;
     }
-    $price = $variant->get('field_ex_showroom_price')->value;
-    if ($price !== NULL && $price !== '') {
-      $prices[] = (int) $price;
-    }
-    foreach ($variant->get('field_fuel_type') as $term) {
-      $fuels[$term->target_id] = $term->target_id;
-    }
-    foreach ($variant->get('field_transmission') as $term) {
-      $transmissions[$term->target_id] = $term->target_id;
+    foreach ($variant->get('field_powertrains') as $powertrain) {
+      if (is_numeric($powertrain->ex_showroom_price)) {
+        $prices[] = (int) $powertrain->ex_showroom_price;
+      }
+      if ($powertrain->fuel_type) {
+        $fuels[$powertrain->fuel_type] = $powertrain->fuel_type;
+      }
+      if ($powertrain->transmission) {
+        $transmissions[$powertrain->transmission] = $powertrain->transmission;
+      }
     }
   }
 
@@ -125,22 +53,4 @@ function autoarena_catalog_summarize_variants(NodeInterface $car): void {
   $car->set('field_price_max', $prices ? max($prices) : NULL);
   $car->set('field_fuel_type', array_values($fuels));
   $car->set('field_transmission', array_values($transmissions));
-}
-
-/**
- * Re-saves every car that references a variant, so its summary stays current.
- *
- * Saved as syncing so the car keeps its changed time and gets no new revision.
- */
-function autoarena_catalog_resave_parent_cars(NodeInterface $variant): void {
-  $storage = \Drupal::entityTypeManager()->getStorage('node');
-  $ids = $storage->getQuery()
-    ->accessCheck(FALSE)
-    ->condition('type', 'cars')
-    ->condition('field_variants', $variant->id())
-    ->execute();
-  foreach ($storage->loadMultiple($ids) as $car) {
-    $car->setSyncing(TRUE);
-    $car->save();
-  }
 }

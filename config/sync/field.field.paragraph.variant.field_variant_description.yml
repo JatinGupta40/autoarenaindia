@@ -1,0 +1,22 @@
+uuid: 2eac50cd-4450-4dc5-9fcf-ff339f0201e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_variant_description
+    - paragraphs.paragraphs_type.variant
+  module:
+    - text
+id: paragraph.variant.field_variant_description
+field_name: field_variant_description
+entity_type: paragraph
+bundle: variant
+label: Description
+description: 'Trim-level highlights and features.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

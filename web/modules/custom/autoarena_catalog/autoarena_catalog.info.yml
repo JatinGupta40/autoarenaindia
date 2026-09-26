@@ -1,9 +1,10 @@
 name: AutoArena Catalog
 type: module
-description: 'Keeps car (generation) summary fields in sync with their variants and deep-clones variants when a car is cloned.'
+description: 'Keeps car (generation) summary fields in sync with their variant paragraphs, and migrates legacy variant nodes to paragraphs.'
 package: AutoArena
 core_version_requirement: ^10
 dependencies:
   - drupal:node
-  - inline_entity_form:inline_entity_form
+  - custom_field:custom_field
+  - paragraphs:paragraphs
   - quick_node_clone:quick_node_clone
