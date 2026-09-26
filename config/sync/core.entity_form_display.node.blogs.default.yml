@@ -1,25 +1,23 @@
-uuid: b545a66b-560f-4c5b-b1a1-51db8591f993
+uuid: 03736968-21b4-41b2-848c-abef220737b4
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.article.body
-    - field.field.node.article.comment
-    - field.field.node.article.field_image
-    - field.field.node.article.field_related_car
-    - field.field.node.article.field_tags
+    - field.field.node.blogs.body
+    - field.field.node.blogs.comment
+    - field.field.node.blogs.field_image
+    - field.field.node.blogs.field_related_car
+    - field.field.node.blogs.field_tags
     - image.style.thumbnail
-    - node.type.article
+    - node.type.blogs
   module:
     - comment
     - image
     - path
     - text
-_core:
-  default_config_hash: ewbd6G2uX456-bgwseM2Q-KQG3RkASoyHmTh-XR3oLU
-id: node.article.default
+id: node.blogs.default
 targetEntityType: node
-bundle: article
+bundle: blogs
 mode: default
 content:
   body:

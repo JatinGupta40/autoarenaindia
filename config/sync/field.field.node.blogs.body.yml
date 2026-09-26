@@ -1,18 +1,16 @@
-uuid: 19e50a08-ee34-41d9-af45-93555add5f2f
+uuid: 949d6ef5-59ea-40cf-8d2c-16d703f893a1
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.body
-    - node.type.article
+    - node.type.blogs
   module:
     - text
-_core:
-  default_config_hash: 4Wxs1LseZ8JsNwD9uJVIbzZqG35yQXN8Eo1Hub6NMuI
-id: node.article.body
+id: node.blogs.body
 field_name: body
 entity_type: node
-bundle: article
+bundle: blogs
 label: Body
 description: ''
 required: false

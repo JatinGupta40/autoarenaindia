@@ -1,0 +1,28 @@
+uuid: f481c148-6bcf-4f3d-816f-50fcde15cd23
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.rss
+    - field.field.node.blogs.body
+    - field.field.node.blogs.comment
+    - field.field.node.blogs.field_image
+    - field.field.node.blogs.field_related_car
+    - field.field.node.blogs.field_tags
+    - node.type.blogs
+  module:
+    - user
+id: node.blogs.rss
+targetEntityType: node
+bundle: blogs
+mode: rss
+content:
+  links:
+    weight: 100
+    region: content
+hidden:
+  body: true
+  comment: true
+  field_image: true
+  field_related_car: true
+  field_tags: true
