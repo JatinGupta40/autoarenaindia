@@ -1,0 +1,45 @@
+uuid: 83e939b9-b491-43d1-85fa-6e6dd1514797
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.variant.field_powertrains
+    - field.field.paragraph.variant.field_variant_description
+    - field.field.paragraph.variant.field_variant_name
+    - paragraphs.paragraphs_type.variant
+  module:
+    - custom_field
+    - text
+id: paragraph.variant.default
+targetEntityType: paragraph
+bundle: variant
+mode: default
+content:
+  field_powertrains:
+    type: custom_table
+    label: hidden
+    settings:
+      fields: {  }
+      hide_empty: false
+      sort_by: _delta
+      sort_order: asc
+      hide_header: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_variant_description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_variant_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

@@ -1,0 +1,59 @@
+uuid: d6692720-7137-4a2f-bdeb-b28ca58c0e99
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_powertrains
+    - paragraphs.paragraphs_type.variant
+    - taxonomy.vocabulary.fuel
+    - taxonomy.vocabulary.transmission
+  module:
+    - custom_field
+id: paragraph.variant.field_powertrains
+field_name: field_powertrains
+entity_type: paragraph
+bundle: variant
+label: Powertrains
+description: 'One row per engine + transmission combination this variant is sold with. Mileage and price belong to the combination.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  add_more_label: 'Add another powertrain'
+  field_settings:
+    engine_name:
+      label: Engine
+      description: 'e.g. 1.5 Turbo GDi, 1.5 CRDi'
+    fuel_type:
+      label: Fuel
+      required: true
+      handler: 'default:taxonomy_term'
+      handler_settings:
+        auto_create: false
+        target_bundles:
+          fuel: fuel
+    transmission:
+      label: Transmission
+      required: true
+      handler: 'default:taxonomy_term'
+      handler_settings:
+        auto_create: false
+        target_bundles:
+          transmission: transmission
+    engine_cc:
+      label: 'Engine (cc)'
+      min: 0
+    power_bhp:
+      label: 'Power (bhp)'
+      min: 0
+    torque_nm:
+      label: 'Torque (Nm)'
+      min: 0
+    mileage_kmpl:
+      label: 'Mileage (km/l)'
+      min: 0
+    ex_showroom_price:
+      label: 'Ex-showroom price (₹)'
+      min: 0
+field_type: custom

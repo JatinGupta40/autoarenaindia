@@ -10,7 +10,7 @@ id: node.cars.field_variants
 field_name: field_variants
 entity_type: node
 bundle: cars
-label: Variants
+label: 'Variants (legacy – replaced by field_car_variants)'
 description: ''
 required: false
 translatable: true

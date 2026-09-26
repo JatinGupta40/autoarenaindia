@@ -1,0 +1,64 @@
+uuid: 3e1675e6-dfec-4653-ac8c-0d7402d637cb
+langcode: en
+status: true
+dependencies:
+  module:
+    - custom_field
+    - paragraphs
+    - taxonomy
+id: paragraph.field_powertrains
+field_name: field_powertrains
+entity_type: paragraph
+type: custom
+settings:
+  columns:
+    engine_name:
+      allowed_values: {  }
+      name: engine_name
+      type: string
+      length: 100
+    fuel_type:
+      name: fuel_type
+      type: entity_reference
+      target_type: taxonomy_term
+    transmission:
+      name: transmission
+      type: entity_reference
+      target_type: taxonomy_term
+    engine_cc:
+      allowed_values: {  }
+      name: engine_cc
+      type: integer
+      unsigned: true
+      size: normal
+    power_bhp:
+      name: power_bhp
+      type: decimal
+      unsigned: true
+      precision: 6
+      scale: 2
+    torque_nm:
+      name: torque_nm
+      type: decimal
+      unsigned: true
+      precision: 6
+      scale: 2
+    mileage_kmpl:
+      name: mileage_kmpl
+      type: decimal
+      unsigned: true
+      precision: 6
+      scale: 2
+    ex_showroom_price:
+      allowed_values: {  }
+      name: ex_showroom_price
+      type: integer
+      unsigned: true
+      size: normal
+module: custom_field
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

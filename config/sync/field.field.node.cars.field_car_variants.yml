@@ -1,0 +1,31 @@
+uuid: 4564b8c6-36d5-457a-9e7b-5c7658c85607
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_car_variants
+    - node.type.cars
+    - paragraphs.paragraphs_type.variant
+  module:
+    - entity_reference_revisions
+id: node.cars.field_car_variants
+field_name: field_car_variants
+entity_type: node
+bundle: cars
+label: Variants
+description: 'Price range, fuel types and transmissions of the car are computed from the published variants.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      variant: variant
+    negate: 0
+    target_bundles_drag_drop:
+      variant:
+        weight: 0
+        enabled: true
+field_type: entity_reference_revisions

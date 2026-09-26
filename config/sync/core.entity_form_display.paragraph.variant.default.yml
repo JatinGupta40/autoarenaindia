@@ -1,0 +1,61 @@
+uuid: a67b0225-14f2-4571-b012-8a275b9c60c8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.variant.field_powertrains
+    - field.field.paragraph.variant.field_variant_description
+    - field.field.paragraph.variant.field_variant_name
+    - paragraphs.paragraphs_type.variant
+  module:
+    - custom_field
+    - text
+id: paragraph.variant.default
+targetEntityType: paragraph
+bundle: variant
+mode: default
+content:
+  field_powertrains:
+    type: custom_flex
+    weight: 1
+    region: content
+    settings:
+      wrapper: details
+      label_value: ''
+      label_limit: 60
+      label_prefix: Powertrain
+      auto_collapse: false
+      open: true
+      fields:
+        fuel_type:
+          type: entity_reference_select
+        transmission:
+          type: entity_reference_select
+      columns: {  }
+      breakpoint: ''
+    third_party_settings: {  }
+  field_variant_description:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+  field_variant_name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  created: true
