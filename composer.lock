@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b73e42f0a9c2250f77dc771c5c4c556",
+    "content-hash": "821546cd29b7cf4da2c6034ffe4adb1e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1661,6 +1661,73 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/ctools",
                 "issues": "https://www.drupal.org/project/issues/ctools"
+            }
+        },
+        {
+            "name": "drupal/custom_field",
+            "version": "4.0.12",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/custom_field.git",
+                "reference": "4.0.12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/custom_field-4.0.12.zip",
+                "reference": "4.0.12",
+                "shasum": "6616ef90995f39298d75d1ea772ce97915f61a5e"
+            },
+            "require": {
+                "drupal/core": "^10.3 || >=11.0 <11.4"
+            },
+            "require-dev": {
+                "drupal/ai": "^1.2 || ^1.3",
+                "drupal/entity_browser": "^2",
+                "drupal/entity_usage": "^2",
+                "drupal/feeds": "^3",
+                "drupal/graphql_compose": "^2.4",
+                "drupal/linkit": "^6.1 || ^7",
+                "drupal/maxlength": "^3",
+                "drupal/paragraphs": "^1",
+                "drupal/search_api": "^1",
+                "drupal/svg_image": "^3",
+                "drupal/token": "^1",
+                "drupal/ui_patterns": "^2"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "4.0.12",
+                    "datestamp": "1789545751",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "apmsooner",
+                    "homepage": "https://www.drupal.org/user/593202"
+                },
+                {
+                    "name": "dave reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                }
+            ],
+            "description": "Dynamic custom field types with extensive widget and formatter plugin support. A highly performant & scalable alternative to paragraphs and entity reference by storing data in a single table.",
+            "homepage": "https://www.drupal.org/project/custom_field",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/custom_field",
+                "issues": "https://www.drupal.org/project/issues/custom_field",
+                "docs": "https://www.drupal.org/docs/extending-drupal/contributed-modules/contributed-module-documentation/custom-field"
             }
         },
         {
