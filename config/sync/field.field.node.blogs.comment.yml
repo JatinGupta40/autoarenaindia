@@ -1,18 +1,16 @@
-uuid: 9437caa3-57df-403b-90bc-2be69ee39954
+uuid: ecf033a2-4ad7-4a5e-910b-8d680e016713
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.comment
-    - node.type.article
+    - node.type.blogs
   module:
     - comment
-_core:
-  default_config_hash: UqXlkKC4v2-bDfWx4zcXQrD5YIi3d5byENEmWv-G_Uc
-id: node.article.comment
+id: node.blogs.comment
 field_name: comment
 entity_type: node
-bundle: article
+bundle: blogs
 label: Comments
 description: ''
 required: false

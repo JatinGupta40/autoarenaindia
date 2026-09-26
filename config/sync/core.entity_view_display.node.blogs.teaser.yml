@@ -1,25 +1,23 @@
-uuid: 3f492ac0-bd03-4ca7-9ebc-1687efb1f9c2
+uuid: ee68fc67-840f-45c5-aab9-3ffe68a8ec4c
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.article.body
-    - field.field.node.article.comment
-    - field.field.node.article.field_image
-    - field.field.node.article.field_related_car
-    - field.field.node.article.field_tags
+    - field.field.node.blogs.body
+    - field.field.node.blogs.comment
+    - field.field.node.blogs.field_image
+    - field.field.node.blogs.field_related_car
+    - field.field.node.blogs.field_tags
     - image.style.medium
-    - node.type.article
+    - node.type.blogs
   module:
     - image
     - text
     - user
-_core:
-  default_config_hash: O8PxzfG8DOHHRu6M23kwR6TDPq_MNfYQ10Mp367ICUQ
-id: node.article.teaser
+id: node.blogs.teaser
 targetEntityType: node
-bundle: article
+bundle: blogs
 mode: teaser
 content:
   body:

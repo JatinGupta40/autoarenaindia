@@ -1,15 +1,15 @@
-uuid: 3e13c74b-2686-46df-9c18-226bfa619e83
+uuid: cc6d078c-c9c8-44e4-bc41-74b14cbbe2d9
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_related_car
-    - node.type.article
+    - node.type.blogs
     - node.type.cars
-id: node.article.field_related_car
+id: node.blogs.field_related_car
 field_name: field_related_car
 entity_type: node
-bundle: article
+bundle: blogs
 label: 'Related car'
 description: 'The specific car generation this story is about.'
 required: false
