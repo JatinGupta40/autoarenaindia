@@ -1,0 +1,64 @@
+name: CI
+
+# Branch flow: feature/* -> develop -> stage -> main.
+# Runs on every PR into those branches. deploy.yml also calls it after a
+# merge, so the checks live in one place.
+on:
+  pull_request:
+    branches: [develop, stage, main]
+  workflow_dispatch:
+  workflow_call:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  php:
+    name: PHP checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+          extensions: gd, pdo_mysql
+          coverage: none
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --no-check-publish
+
+      - name: Cache Composer downloads
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/composer
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Lint PHP in custom code
+        run: |
+          find web/modules/custom web/themes/custom \
+            -type f \( -name '*.php' -o -name '*.module' -o -name '*.inc' -o -name '*.install' -o -name '*.theme' \) \
+            -print0 | xargs -0 -n1 php -l
+
+      - name: Lint config YAML
+        run: vendor/bin/yaml-lint config/sync
+
+      - name: Drupal coding standards (custom modules)
+        run: |
+          composer global config --no-interaction allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+          composer global require --no-interaction --no-progress drupal/coder:^8.3
+          "$(composer global config bin-dir --absolute)/phpcs" \
+            --standard=Drupal,DrupalPractice \
+            --extensions=php,module,inc,install,info.yml \
+            web/modules/custom

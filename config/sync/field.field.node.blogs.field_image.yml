@@ -1,18 +1,16 @@
-uuid: c220b195-defa-4c9d-a5d6-3493cb3b499d
+uuid: 7e4c1baa-9dd6-490a-8fca-1f8b03d1ad6c
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_image
-    - node.type.article
+    - node.type.blogs
   module:
     - image
-_core:
-  default_config_hash: j0riO_-77ZFWNLtj0iJ31HnohiNjdn8HUL86RueCF-M
-id: node.article.field_image
+id: node.blogs.field_image
 field_name: field_image
 entity_type: node
-bundle: article
+bundle: blogs
 label: Image
 description: ''
 required: false

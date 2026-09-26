@@ -1,10 +1,12 @@
-uuid: 53021ad7-2b29-498c-ae93-d61e783e98ae
+uuid: ad33224f-8fcb-403b-b704-aac3c8717794
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.blogs
   module:
     - node
-id: node_article
+id: node_blogs
 label: Blog
 type: 'canonical_entities:node'
 pattern: '/blog/[node:title]'
@@ -15,7 +17,7 @@ selection_criteria:
     context_mapping:
       node: node
     bundles:
-      article: article
+      blogs: blogs
 selection_logic: and
 weight: 0
 relationships: {  }
